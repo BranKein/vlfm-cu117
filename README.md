@@ -38,15 +38,24 @@ Understanding how humans leverage semantic knowledge to navigate unfamiliar envi
 ### Getting Started
 Create the conda environment:
 ```bash
-conda_env_name=vlfm
+conda_env_name=vlfm-cu117
 conda create -n $conda_env_name python=3.9 -y
 conda activate $conda_env_name
-pip install torch==1.12.1+cu113 torchvision==0.13.1+cu113 -f https://download.pytorch.org/whl/torch_stable.html
-pip install git+https://github.com/IDEA-Research/GroundingDINO.git@eeba084341aaa454ce13cb32fa7fd9282fc73a67 salesforce-lavis==1.0.2
+pip install torch==1.13.1+cu117 torchvision==0.14.1+cu117 -f https://download.pytorch.org/whl/torch_stable.html
+pip install cython
+pip install "spacy<3.8"
+
+conda install -c conda-forge cudatoolkit-dev=11.7 -y
+sudo apt install g++-11 gcc-11 -y
+export CXX=g++-11
+export CC=gcc-11
+pip install "numpy>=1.24.0,<2.0.0" "timm>=0.6.0,<1.0.0" "transformers==4.26.0" "opencv-python==4.5.5.64"
+pip install --no-build-isolation git+https://github.com/IDEA-Research/GroundingDINO.git@eeba084341aaa454ce13cb32fa7fd9282fc73a67 salesforce-lavis==1.0.2
 ```
 If you are using habitat and are doing simulation experiments, install this repo into your env with the following:
 ```bash
-pip install -e .[habitat]
+pip install "cmake==3.29.6"
+pip install --no-build-isolation -e .[habitat] 
 ```
 If you are using the Spot robot, install this repo into your env with the following:
 ```bash
